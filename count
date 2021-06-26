@@ -14,15 +14,13 @@ configInfo = {"name": "",
 
 configFile = "./"
 
-
-
-print("Welcome to the calorie tracker!")
-try:
+def fetchInfo():
     with open("config.json", "r") as f:
         print("Fetching information...\n\n")
         configInfo = json.load(f)
         print("Hello " + configInfo["name"] + ", your data has been loaded! As a reminder, you need " + str(configInfo["cals_a_day"]) + " calories a day")
-except:
+
+def createNewUser():
     print("It seems that it is your first time here. Please answer some questions so that we can best customize your experience: ")
     configInfo["name"] = input("What is your name? ")
     print("Great! It's nice to meet you", configInfo["name"])
@@ -99,6 +97,8 @@ except:
         configInfo["cals_a_day"] = bmr * 1.725
     else:
         configInfo["cals_a_day"] = bmr * 1.9
+    
+    configInfo["cals_a_day"] = round(configInfo["cals_a_day"])
 
     print("Thank you very much. For reference, you need " + str(configInfo["cals_a_day"]) + " calories a day")
     print("Saving information...")
@@ -106,3 +106,11 @@ except:
     with open("config.json", "w") as output: 
         json.dump(configInfo, output)
     print("Information successfully saved!")
+
+if __name__ == "__main__":
+    print("Welcome to the calorie tracker!")
+    try:
+        fetchInfo()
+    except:
+        createNewUser()
+    
