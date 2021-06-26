@@ -17,7 +17,7 @@ class Meal(db.Model):
     day = db.relationship("Day", back_populates="meals")
     foods = db.relationship("Foods", back_populates="meal")
 
-    def __init__(self, kwargs**):
+    def __init__(self, **kwargs):
         self.calories = kwargs.get('calories')
         self.time = kwargs.get('time')
 
