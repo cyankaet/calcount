@@ -7,7 +7,7 @@ class Meal(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     date = db.Column(db.Date, nullable=False)
-    foods = db.relationship("Foods", back_populates="meal")
+    foods = db.relationship("Food", back_populates="meal")
 
     def __init__(self, **kwargs):
         self.name = kwargs.get('name')
