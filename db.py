@@ -12,6 +12,12 @@ class Meal(db.Model):
     def __init__(self, **kwargs):
         self.name = kwargs.get('name')
         self.date = kwargs.get('date')
+        
+    def serialize(self):
+        return {"id": self.id,
+                "name": self.name,
+                "date": self.date,
+                "foods": [f.serialize() for f in self.foods]}
 
 class Food(db.Model):
     __tablename__ = "food"
@@ -25,3 +31,8 @@ class Food(db.Model):
         self.name = kwargs.get('name')
         self.calories = kwargs('calories')
 
+    def serialize(self):
+        return {"id": self.id,
+                "name": self.name,
+                "calories": self.calories
+                }

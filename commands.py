@@ -1,4 +1,4 @@
-# import db
+from datacmd import *
 from math import *
 import requests
 import json
