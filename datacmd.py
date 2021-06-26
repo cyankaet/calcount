@@ -14,3 +14,10 @@ def new_food(meal_name, calories, name):
     meal.foods.append(food)
     db.session.commit()
     return meal.serialize()
+
+def calculate_calories_today():
+    meals = Meal.query.filter_by(date=date.today())
+    calories = 0
+    for meal in meals:
+        calories += meal["calories"]
+    return calories
