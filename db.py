@@ -14,7 +14,7 @@ class Meal(db.Model):
         self.date = kwargs.get('date')
 
 class Food(db.Model):
-    __tablename__:"food"
+    __tablename__ = "food"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     calories = db.Column(db.Integer, nullable=False)
