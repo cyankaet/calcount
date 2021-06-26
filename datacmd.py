@@ -5,7 +5,12 @@ def new_meal(name):
     meal = Meal(name=name, date=date.today())
     db.session.add(meal)
     db.commit()
-    return meal
+    return meal.serialize()
 
 def new_food(meal_name, calories, name):
     meal = Meal.query.filter_by(name= meal_name, date=date.today()).first()
+    food = Food(name = name, calories=calories)
+    db.session.add(meal)
+    meal.foods.append(food)
+    db.session.commit()
+    return meal.serialize()
