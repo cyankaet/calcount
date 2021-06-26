@@ -6,12 +6,12 @@ class Meal(db.Model):
     __tablename__="meal"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
-    time = db.Column(db.DateTime, nullable=False)
+    date = db.Column(db.Date, nullable=False)
     foods = db.relationship("Foods", back_populates="meal")
 
     def __init__(self, **kwargs):
         self.name = kwargs.get('name')
-        self.time = kwargs.get('time')
+        self.date = kwargs.get('date')
 
 class Food(db.Model):
     __tablename__:"food"
