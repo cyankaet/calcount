@@ -2,6 +2,7 @@
 
 import json
 # import db
+from commands import *
 
 configInfo = {"name": "",
               "age": 0,
