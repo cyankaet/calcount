@@ -126,4 +126,3 @@ if __name__ == "__main__":
     args = parse.parse_args()
     if args.func is not None:
         args.func() #this will call the function that corresponds with the flag given (default is add food)
-    print(args)
