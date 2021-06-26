@@ -3,3 +3,4 @@
 config.json
 apiTest.py
 /__pycache__
+apiKey.json

@@ -3,11 +3,7 @@
 import json
 import argparse
 # import db
-<<<<<<< HEAD
-from commands import *
-=======
 import commands
->>>>>>> 69c5a35005399e09fca7399bd70a34856dbe94f3
 
 configInfo = {"name": "",
               "age": 0,
