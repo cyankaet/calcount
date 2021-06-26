@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
 import json
+import argparse
 # import db
+import commands
 
 configInfo = {"name": "",
               "age": 0,
@@ -13,6 +15,8 @@ configInfo = {"name": "",
 }
 
 configFile = "./"
+
+
 
 def fetchInfo():
     with open("config.json", "r") as f:
@@ -97,7 +101,7 @@ def createNewUser():
         configInfo["cals_a_day"] = bmr * 1.725
     else:
         configInfo["cals_a_day"] = bmr * 1.9
-    
+
     configInfo["cals_a_day"] = round(configInfo["cals_a_day"])
 
     print("Thank you very much. For reference, you need " + str(configInfo["cals_a_day"]) + " calories a day")
@@ -107,10 +111,19 @@ def createNewUser():
         json.dump(configInfo, output)
     print("Information successfully saved!")
 
+# argument parsing
 if __name__ == "__main__":
     print("Welcome to the calorie tracker!")
     try:
         fetchInfo()
     except:
         createNewUser()
-    
+
+    parse = argparse.ArgumentParser(description="Track your calories from the comfort of the command line")
+
+    parse.add_argument("--graph", "-g", dest='func', action='store_const', const=commands.graph, help="graph your calorie intake")
+    parse.add_argument("--add", "-a", dest='func', action='store_const', const=commands.add, help="the food you ate for one meal")
+    args = parse.parse_args()
+    if args.func is not None:
+        args.func() #this will call the function that corresponds with the flag given (default is add food)
+    print(args)

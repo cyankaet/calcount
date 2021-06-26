@@ -12,7 +12,7 @@ class Meal(db.Model):
     __tablename__="meal"
     id = db.Column(db.Integer, primary_key=True)
     calories = db.Column(db.Integer, nullable=False)
-    time = db.Column(db.DateTime, nullable=False) #just use time?
+    time = db.Column(db.Time, nullable=False) #just use time?
     day_id = db.Column(db.Integer, ForeignKey('day.id'))
     day = db.relationship("Day", back_populates="meals")
     foods = db.relationship("Foods", back_populates="meal")
