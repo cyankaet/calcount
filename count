@@ -1,19 +1,108 @@
 #!/usr/bin/env python
 
 import json
-import db
+# import db
 
 configInfo = {"name": "",
+              "age": 0,
+              "sex": 0,
               "height": 0,
               "weight": 0,
-              "activity_level": "",
+              "activity_level": 0,
               "cals_a_day": 0
 }
 
-print("Welcome to the calorie tracker! \n Fetching information...")
+configFile = "./"
+
+
+
+print("Welcome to the calorie tracker!")
 try:
-    with open("config.json") as f:
-        print("hello world!")
+    with open("config.json", "r") as f:
+        print("Fetching information...\n\n")
+        configInfo = json.load(f)
+        print("Hello " + configInfo["name"] + ", your data has been loaded! As a reminder, you need " + str(configInfo["cals_a_day"]) + " calories a day")
 except:
-    print("No file found")
-    
+    print("It seems that it is your first time here. Please answer some questions so that we can best customize your experience: ")
+    configInfo["name"] = input("What is your name? ")
+    print("Great! It's nice to meet you", configInfo["name"])
+
+    while True:
+        try:
+            configInfo["age"] = int(input("Now what is your age? "))
+            break
+        except:
+            print("This is not a valid age value. Please try again.")
+
+    while True:
+        try:
+            heightResponse = [int(x) for x in input('Now what is your height (Please put in the form "feet inches") ').split()]
+            if (heightResponse[1] >= 12):
+                raise ValueError
+            break
+        except:
+            print("Invalid format. Please try again.")
+    configInfo["height"] = heightResponse[0] * 12 + heightResponse[1]
+
+    while True:
+        try:
+            configInfo["weight"] = int(input("Thank you very much. Now what is your weight in pounds? "))
+            break
+        except:
+            print("This is not a valid weight value. Please try again.")
+
+    # activityLevels = ["sedentary", "lightly active", "moderately active", "very active", "extra active"]
+
+    print("Thank you. Please rate your activity on a 1-5 scale based on the following:")
+    print("1: Sedentary: little to no exercise")
+    print("2: Lightly active: light exercise/sports 1-3 days/wk")
+    print("3: Moderately active: moderate exercise/sports 3-5 days/wk")
+    print("4: Very active: hard exercise/sports 6-7 days a week")
+    print("5: Extra active: very hard exercise/sports & physical job or 2x training")
+    while True:
+        try:
+            activity = int(input("Please select on option: "))
+            if (activity < 1 or activity > 5):
+                raise ValueError
+            configInfo["activity_level"] = activity
+            break
+        except:
+            print("Invalid value. Please try again.")
+            
+    print("One last thing for caloric data tracking: what is your biological sex?")
+    while True:
+        try:
+            sex = input("Respond with M for male, F for female: ")
+            if (sex.upper() == "M"):
+                configInfo["sex"] = 0
+            elif (sex.upper() == "F"):
+                configInfo["sex"] = 1
+            else:
+                raise ValueError
+            break
+        except:
+            print("Invalid value. Please try again.")
+            
+    bmr = 0
+    if configInfo["sex"]:
+        bmr = 655 + (4.3 * configInfo["weight"]) + (4.7 * configInfo["height"]) - (4.7 * configInfo["age"]) 
+    else:
+        bmr = 66 + (6.3 * configInfo["weight"]) + (12.9 * configInfo["height"]) - (6.8 * configInfo["age"])
+
+    if (configInfo["activity_level"] == 1):
+        configInfo["cals_a_day"] = bmr * 1.2
+    elif (configInfo["activity_level"] == 2):
+        configInfo["cals_a_day"] = bmr * 1.375
+    elif (configInfo["activity_level"] == 3):
+        configInfo["cals_a_day"] = bmr * 1.55
+    elif (configInfo["activity_level"] == 4):
+        configInfo["cals_a_day"] = bmr * 1.725
+    else:
+        configInfo["cals_a_day"] = bmr * 1.9
+
+    print("Thank you very much. For reference, you need " + str(configInfo["cals_a_day"]) + " calories a day")
+    print("Saving information...")
+
+    with open("config.json", "w") as output: 
+        json.dump(configInfo, output)
+    print("Information successfully saved!")
