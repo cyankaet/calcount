@@ -14,7 +14,6 @@ class Day(db.Model):
 class Meal(db.Model):
     __tablename__="meal"
     id = db.Column(db.Integer, primary_key=True)
-    calories = db.Column(db.Integer, nullable=False)
     name = db.Column(db.String, nullable=False)
     time = db.Column(db.Time, nullable=False)
     day_id = db.Column(db.Integer, db.ForeignKey('day.id'))
@@ -23,7 +22,6 @@ class Meal(db.Model):
 
     def __init__(self, **kwargs):
         self.name = kwargs.get('name')
-        self.calories = kwargs.get('calories')
         self.time = kwargs.get('time')
 
 class Food(db.Model):
