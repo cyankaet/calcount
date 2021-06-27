@@ -4,7 +4,7 @@ from datetime import date, datetime, timedelta
 def new_meal(name):
     meal = Meal(name=name, date=date.today())
     db.session.add(meal)
-    db.commit()
+    db.session.commit()
     return meal.serialize()
 
 def new_food(meal_name, calories, name):
