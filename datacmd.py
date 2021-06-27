@@ -62,14 +62,15 @@ def recent_day_calories():
         cals[datetime.today().strftime('%A')]=calculate_calories(timedelta(-7 + i))
     return success_response(cals)
 
-@app.route("/calculate/", methods=['POST'])
+@app.route("/calculate/")
 def get_day_cals():
-    body = json.loads(request.data)
-    print(body)
-    date = body.get('date')
-    if date is None:
-        return failure_response("Missing calculation date")
-    success_response(calculate_calories(date))
+    # body = json.loads(request.data)
+    # print(body)
+    # date = body.get('date')
+    # if date is None:
+    #     return failure_response("Missing calculation date")
+    # success_response(calculate_calories(date))
+    success_response(calculate_calories(date.today()))
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=False)
