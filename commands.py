@@ -14,6 +14,8 @@ url = base_url + function + "?api_key=" + api_key
 
 def add():
     print("Add mode \n")
+    mealName = input("Name this meal: ")
+    new_meal(mealName)
     foodList = input("Please enter the food you've eaten for the meal as a comma-separated list (ex: orange chicken, soda, cookie): ").split(", ")
     mealCals = 0
     for food in foodList:
@@ -64,6 +66,7 @@ def add():
                         try:
                             numServings = int(input("How many servings did you have? "))
                             mealCals += (int(x["value"]) * numServings) 
+                            new_food(mealName, mealCals, food)
                             break
                         except:
                             print("Invalid amount, please try again")
@@ -81,5 +84,7 @@ def graph():
     print("i'm graphing!")
 
 
-
+def track(cal_needs):
+    numCaloriesToday = calculate_calories_today()
+    print("Out of the suggested " + str(cal_needs) + " daily calories, you have eaten " + str(numCaloriesToday) + " calories.")
 
