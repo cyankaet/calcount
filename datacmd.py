@@ -1,5 +1,5 @@
 from db import Meal, Food, db
-from datetime import date
+from datetime import date, datetime, timedelta
 
 def new_meal(name):
     meal = Meal(name=name, date=date.today())
@@ -15,11 +15,14 @@ def new_food(meal_name, calories, name):
     db.session.commit()
     return meal.serialize()
 
-def recent_days():
-    return "test"
+def recent_day_calories():
+    cals = {}
+    for i in range(7):
+        cals[datetime.today().strftime('%A')]=calculate_calories(timedelta(-7 + i))
+    return cals
 
-def calculate_calories_today():
-    meals = Meal.query.filter_by(date=date.today())
+def calculate_calories(date):
+    meals = Meal.query.filter_by(date=date)
     calories = 0
     for meal in meals:
         calories += meal["calories"]

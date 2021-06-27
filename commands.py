@@ -75,7 +75,7 @@ def add():
     print("This meal has " + str(mealCals) + " calories.")
 
 def graph():
-    print(recent_days())
+    print(recent_day_calories())
     weekcals = [('long_label', 423), ('sl', 1234), ('line3', 531),
             ('line4', 200), ('line5', 834)]
     graph = Pyasciigraph()
