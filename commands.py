@@ -81,19 +81,27 @@ def add():
     print("This meal has " + str(mealCals) + " calories.")
 
 def graph():
-    print(requests.get('http://localhost:5000/recent/'))
-    weekcals = [('long_label', 423), ('sl', 1234), ('line3', 531),
-            ('line4', 200), ('line5', 834)]
+    j = requests.get('http://localhost:5000/recent/')
+    stuff = j.json().get('data')
+    #print(stuff)
+    weekcals = [('Sunday', 1892), ('Monday', 1456), ('Tuesday', 1203), ('Wednesday', 1234), ('Thursday', 1531),
+            ('Friday', 2000), ('Saturday', 1834)]
     graph = Pyasciigraph()
     for line in graph.graph('Calories per day for the last week', weekcals):
         print(line)
-    print("i'm graphing!")
+    #print("i'm graphing!")
 
 
 def track(cal_needs):
     # params= {'date': json.dumps(date.today().isoformat())}
     # numCaloriesToday = requests.get('http://localhost:5000/calculate/', json = params)
     #params= {'date': date.today()}
+<<<<<<< HEAD
     j = requests.post('http://localhost:5000/calculate/')
     print("Out of the suggested " + str(cal_needs) + " daily calories, you have eaten " + str(j.json()["data"]["calories"]) + " calories.")
+=======
+    j = requests.get('http://localhost:5000/calculate/')
+    numCaloriesToday = j.json().get('data')
+    print("Out of the suggested " + str(cal_needs) + " daily calories, you have eaten " + str(numCaloriesToday) + " calories.")
+>>>>>>> 0ccca28716cd727f45c48c65946e3019c53249ba
 

@@ -9,7 +9,7 @@ db_filename = "cms.db"
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///%s" % db_filename
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config["SQLALCHEMY_ECHO"] = True
+app.config["SQLALCHEMY_ECHO"] = False
 
 db.init_app(app)
 with app.app_context():
@@ -62,7 +62,7 @@ def new_food():
 @app.route("/recent/")
 def recent_day_calories():
     cals = {}
-    for i in range(7):
+    for i in range(0,7):
         cals[datetime.today().strftime('%A')]=calculate_calories(timedelta(-7 + i))
     return success_response(cals)
 
