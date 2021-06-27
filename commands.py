@@ -18,9 +18,14 @@ url = base_url + function + "?api_key=" + api_key
 def add():
     print("Add mode \n")
     mealName = input("Name this meal: ")
+<<<<<<< HEAD
     mealParams = {"name": mealName}
     requests.post(url = "http://127.0.0.1:5000/meal/", params = mealParams)
     new_meal(mealName)
+=======
+    params = {'name': mealName}
+    requests.get('http://localhost:5000/meal/', params)
+>>>>>>> 6da6a0b48ee2f040ca81217941b2f1ba0f189866
     foodList = input("Please enter the food you've eaten for the meal as a comma-separated list (ex: orange chicken, soda, cookie): ").split(", ")
     mealCals = 0
     for food in foodList:
@@ -71,7 +76,8 @@ def add():
                         try:
                             numServings = int(input("How many servings did you have? "))
                             mealCals += (int(x["value"]) * numServings) 
-                            new_food(mealName, mealCals, food)
+                            params = {'meal_name': mealName, 'calories': mealCals, 'name': food}
+                            requests.get('http://localhost:5000/food/', params)
                             break
                         except:
                             print("Invalid amount, please try again")
@@ -80,7 +86,7 @@ def add():
     print("This meal has " + str(mealCals) + " calories.")
 
 def graph():
-    print(recent_day_calories())
+    print(requests.get('http://localhost:5000/recent/'))
     weekcals = [('long_label', 423), ('sl', 1234), ('line3', 531),
             ('line4', 200), ('line5', 834)]
     graph = Pyasciigraph()
@@ -90,6 +96,11 @@ def graph():
 
 
 def track(cal_needs):
+<<<<<<< HEAD
     numCaloriesToday = calculate_calories(date.today())
+=======
+    params= {'date': date.today()}
+    numCaloriesToday = requests.get('localhost:5000/calculate/', params)
+>>>>>>> 6da6a0b48ee2f040ca81217941b2f1ba0f189866
     print("Out of the suggested " + str(cal_needs) + " daily calories, you have eaten " + str(numCaloriesToday) + " calories.")
 
