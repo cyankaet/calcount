@@ -111,6 +111,9 @@ def createNewUser():
         json.dump(configInfo, output)
     print("Information successfully saved!")
 
+def track():
+    commands.track(configInfo["cals_a_day"])
+
 # argument parsing
 if __name__ == "__main__":
     print("Welcome to the calorie tracker!")
@@ -123,6 +126,7 @@ if __name__ == "__main__":
 
     parse.add_argument("--graph", "-g", dest='func', action='store_const', const=commands.graph, help="graph your calorie intake")
     parse.add_argument("--add", "-a", dest='func', action='store_const', const=commands.add, help="the food you ate for one meal")
+    parse.add_argument("--track", "-t", dest='func', action='store_const', const=track, help="track calories today")
     args = parse.parse_args()
     if args.func is not None:
         args.func() #this will call the function that corresponds with the flag given (default is add food)
