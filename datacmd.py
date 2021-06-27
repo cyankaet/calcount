@@ -40,6 +40,10 @@ def new_meal():
     db.session.commit()
     return success_response(meal.serialize())
 
+@app.route("/meals/")
+def get_meals():
+    return success_response([c.serialize() for c in Meal.query.all()])
+
 @app.route("/food/", methods=['POST'])
 def new_food():
     body = json.loads(request.data)
@@ -62,15 +66,14 @@ def recent_day_calories():
         cals[datetime.today().strftime('%A')]=calculate_calories(timedelta(-7 + i))
     return success_response(cals)
 
-@app.route("/calculate/")
+@app.route("/calculate/", methods=['POST'])
 def get_day_cals():
-    # body = json.loads(request.data)
-    # print(body)
-    # date = body.get('date')
-    # if date is None:
-    #     return failure_response("Missing calculation date")
-    # success_response(calculate_calories(date))
-    success_response(calculate_calories(date.today()))
+    meals = Meal.query.filter_by(date=date.today())
+    calories = 0
+    for meal in meals:
+        for food in meal.foods:
+            calories += food.calories
+    return success_response({"calories": calories})
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=False)

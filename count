@@ -23,6 +23,9 @@ def fetchInfo():
         print("Fetching information...\n\n")
         configInfo = json.load(f)
         print("Hello " + configInfo["name"] + ", your data has been loaded! As a reminder, you need " + str(configInfo["cals_a_day"]) + " calories a day")
+        return configInfo["cals_a_day"]
+
+
 
 def createNewUser():
     print("It seems that it is your first time here. Please answer some questions so that we can best customize your experience: ")
@@ -112,13 +115,14 @@ def createNewUser():
     print("Information successfully saved!")
 
 def track():
-    commands.track(configInfo["cals_a_day"])
+
+    commands.track(calories)
 
 # argument parsing
 if __name__ == "__main__":
     print("Welcome to the calorie tracker!")
     try:
-        fetchInfo()
+        calories = fetchInfo()
     except:
         createNewUser()
 
