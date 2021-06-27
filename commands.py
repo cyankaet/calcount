@@ -19,7 +19,7 @@ def add():
     print("Add mode \n")
     mealName = input("Name this meal: ")
     params = {'name': mealName}
-    requests.post('http://localhost:5000/meal/', params)
+    requests.get('http://localhost:5000/meal/', params)
     foodList = input("Please enter the food you've eaten for the meal as a comma-separated list (ex: orange chicken, soda, cookie): ").split(", ")
     mealCals = 0
     for food in foodList:
@@ -90,11 +90,7 @@ def graph():
 
 
 def track(cal_needs):
-<<<<<<< HEAD
-    numCaloriesToday = calculate_calories(date.today())
-=======
     params= {'date': date.today()}
     numCaloriesToday = requests.get('localhost:5000/calculate/', params)
->>>>>>> 6da6a0b48ee2f040ca81217941b2f1ba0f189866
     print("Out of the suggested " + str(cal_needs) + " daily calories, you have eaten " + str(numCaloriesToday) + " calories.")
 
