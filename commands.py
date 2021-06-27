@@ -96,12 +96,6 @@ def track(cal_needs):
     # params= {'date': json.dumps(date.today().isoformat())}
     # numCaloriesToday = requests.get('http://localhost:5000/calculate/', json = params)
     #params= {'date': date.today()}
-<<<<<<< HEAD
     j = requests.post('http://localhost:5000/calculate/')
     print("Out of the suggested " + str(cal_needs) + " daily calories, you have eaten " + str(j.json()["data"]["calories"]) + " calories.")
-=======
-    j = requests.get('http://localhost:5000/calculate/')
-    numCaloriesToday = j.json().get('data')
-    print("Out of the suggested " + str(cal_needs) + " daily calories, you have eaten " + str(numCaloriesToday) + " calories.")
->>>>>>> 0ccca28716cd727f45c48c65946e3019c53249ba
 
