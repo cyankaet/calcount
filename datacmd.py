@@ -30,11 +30,11 @@ def calculate_calories(date): #reusing the method
 
 @app.route("/")
 @app.route("/meal/", methods=['POST'])
-def new_meal():
+def new_meal(name):
     body = json.loads(request.data)
-    name = body.get('name')
-    if name is None:
-        return failure_response("Name missing from meal creation")
+    # name = body.get('name')
+    # if name is None:
+    #     return failure_response("Name missing from meal creation")
     meal = Meal(name=name, date=date.today())
     db.session.add(meal)
     db.session.commit()

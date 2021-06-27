@@ -3,7 +3,10 @@ from math import *
 import requests
 import json
 from ascii_graph import Pyasciigraph
+from datetime import date
+import os
 
+os.environ['NO_PROXY'] = '127.0.0.1'
 
 PARAMS = {'query': ""}
 base_url = "https://api.nal.usda.gov/fdc/v1"
@@ -15,6 +18,8 @@ url = base_url + function + "?api_key=" + api_key
 def add():
     print("Add mode \n")
     mealName = input("Name this meal: ")
+    mealParams = {"name": mealName}
+    requests.post(url = "http://127.0.0.1:5000/meal/", params = mealParams)
     new_meal(mealName)
     foodList = input("Please enter the food you've eaten for the meal as a comma-separated list (ex: orange chicken, soda, cookie): ").split(", ")
     mealCals = 0
@@ -85,6 +90,6 @@ def graph():
 
 
 def track(cal_needs):
-    numCaloriesToday = calculate_calories_today()
+    numCaloriesToday = calculate_calories(date.today())
     print("Out of the suggested " + str(cal_needs) + " daily calories, you have eaten " + str(numCaloriesToday) + " calories.")
 
