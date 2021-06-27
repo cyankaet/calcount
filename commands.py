@@ -18,14 +18,8 @@ url = base_url + function + "?api_key=" + api_key
 def add():
     print("Add mode \n")
     mealName = input("Name this meal: ")
-<<<<<<< HEAD
-    mealParams = {"name": mealName}
-    requests.post(url = "http://127.0.0.1:5000/meal/", params = mealParams)
-    new_meal(mealName)
-=======
     params = {'name': mealName}
-    requests.get('http://localhost:5000/meal/', params)
->>>>>>> 6da6a0b48ee2f040ca81217941b2f1ba0f189866
+    requests.post('http://localhost:5000/meal/', params)
     foodList = input("Please enter the food you've eaten for the meal as a comma-separated list (ex: orange chicken, soda, cookie): ").split(", ")
     mealCals = 0
     for food in foodList:
