@@ -19,7 +19,8 @@ def add():
     print("Add mode \n")
     mealName = input("Name this meal: ")
     params = {'name': mealName}
-    requests.get('http://localhost:5000/meal/', params)
+    print(json.dumps(params))
+    requests.post('http://localhost:5000/meal/', json = {'name': mealName})
     foodList = input("Please enter the food you've eaten for the meal as a comma-separated list (ex: orange chicken, soda, cookie): ").split(", ")
     mealCals = 0
     for food in foodList:
@@ -71,7 +72,7 @@ def add():
                             numServings = int(input("How many servings did you have? "))
                             mealCals += (int(x["value"]) * numServings) 
                             params = {'meal_name': mealName, 'calories': mealCals, 'name': food}
-                            requests.get('http://localhost:5000/food/', params)
+                            requests.post('http://localhost:5000/food/', json = {'meal_name': mealName, 'calories': mealCals, 'name': food})
                             break
                         except:
                             print("Invalid amount, please try again")
@@ -90,7 +91,7 @@ def graph():
 
 
 def track(cal_needs):
-    params= {'date': date.today()}
-    numCaloriesToday = requests.get('localhost:5000/calculate/', params)
+    params= {'date': json.dumps(date.today().isoformat())}
+    numCaloriesToday = requests.get('http://localhost:5000/calculate/', json = params)
     print("Out of the suggested " + str(cal_needs) + " daily calories, you have eaten " + str(numCaloriesToday) + " calories.")
 

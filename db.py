@@ -1,5 +1,4 @@
 from flask_sqlalchemy import SQLAlchemy
-
 db = SQLAlchemy()
     
 class Meal(db.Model):
@@ -16,7 +15,6 @@ class Meal(db.Model):
     def serialize(self):
         return {"id": self.id,
                 "name": self.name,
-                "date": self.date,
                 "foods": [f.serialize() for f in self.foods]}
 
 class Food(db.Model):
@@ -29,7 +27,7 @@ class Food(db.Model):
 
     def __init__(self, **kwargs):
         self.name = kwargs.get('name')
-        self.calories = kwargs('calories')
+        self.calories = kwargs.get('calories')
 
     def serialize(self):
         return {"id": self.id,
