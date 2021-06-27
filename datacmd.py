@@ -15,6 +15,9 @@ def new_food(meal_name, calories, name):
     db.session.commit()
     return meal.serialize()
 
+def recent_days():
+    return "test"
+
 def calculate_calories_today():
     meals = Meal.query.filter_by(date=date.today())
     calories = 0

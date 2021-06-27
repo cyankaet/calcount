@@ -2,6 +2,8 @@ from datacmd import *
 from math import *
 import requests
 import json
+from ascii_graph import Pyasciigraph
+
 
 PARAMS = {'query': ""}
 base_url = "https://api.nal.usda.gov/fdc/v1"
@@ -68,7 +70,14 @@ def add():
         else:
             print("Food item: " + PARAMS["query"] + " not found")
     print("This meal has " + str(mealCals) + " calories.")
+
 def graph():
+    print(recent_days())
+    weekcals = [('long_label', 423), ('sl', 1234), ('line3', 531),
+            ('line4', 200), ('line5', 834)]
+    graph = Pyasciigraph()
+    for line in graph.graph('Calories per day for the last week', weekcals):
+        print(line)
     print("i'm graphing!")
 
 
